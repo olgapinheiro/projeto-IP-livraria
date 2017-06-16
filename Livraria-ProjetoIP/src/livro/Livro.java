@@ -85,7 +85,7 @@ public  class Livro {
 	public void estocar(int est){
 		this.estoque=this.estoque+est;
 	}
-	public void setEditora(String ed)
+	public void setEditora(String ed){
 		this.editora=ed;
 	}
 }
