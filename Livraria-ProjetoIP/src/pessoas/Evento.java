@@ -5,13 +5,14 @@ public class Evento {
 	private String nome;
 	private String data;
 	private String horario;
+	private double custo;
 	
-	
-	public Evento (String nome,String data,String horario,double preco){
+
+	public Evento (String nome,String data,String horario,double custo){
 		this.nome = nome;
 		this.data = data;
 		this.horario = horario;
-		
+		this.custo = custo;
 	}
 
 	public String getNome() {
@@ -36,6 +37,13 @@ public class Evento {
 
 	public void setHorario(String horario) {
 		this.horario = horario;
+	}
+	public double getCusto() {
+		return custo;
+	}
+
+	public void setCusto(double custo) {
+		this.custo = custo;
 	}
 
 
