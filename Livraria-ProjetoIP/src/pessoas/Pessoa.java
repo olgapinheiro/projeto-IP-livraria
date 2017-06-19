@@ -8,7 +8,7 @@ public abstract class Pessoa {
 	private String telefone;
 	
 	
-	// construtor
+	// construtores
 	public Pessoa(String nome, String cpf) {
 		this.nome = nome;
 		this.cpf = cpf;

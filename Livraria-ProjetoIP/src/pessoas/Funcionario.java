@@ -1,11 +1,14 @@
 package pessoas;
 
 import livro.Livro;
+//import livro.CadastroLivros;
+import livro.LivroNaoEncontradoException;
 
 public class Funcionario extends Pessoa {
 	double salario;
 	double comissao;
 	int vendasMes;
+	// CadastroLivros livros;
 	// int funcionarioDestaque;
 
 	// construtor
@@ -37,28 +40,34 @@ public class Funcionario extends Pessoa {
 	protected void setVendasMes(int vendasMes) {
 		this.vendasMes = vendasMes;
 	}
-	
-	
+
 	// metodos especificos
-	
-	public void venderLivro(Livro livro){
-		
+
+	public void venderLivro(Livro livro) throws LivroFaltaNoEstoqueException {
+		if (livro.getEstoque() > 0) {
+			this.vendasMes += 1;
+		} else {
+			throw new LivroFaltaNoEstoqueException();
+		}
 	}
-	
-	public void renderComissao(double valorVenda){
-		
+
+	public void renderComissao(double valorVenda) {
+		this.comissao += valorVenda * 0.01;
 	}
-	
-	public void receberComissao(){
-		
+
+	public double receberComissao() {
+		double comissaoTotal = this.comissao;
+		this.comissao = 0;
+		return comissaoTotal;
 	}
-	
-	public void aumentarSalario(){
-		
-	}
-	
-	public void ganharDestaque(){
-		
+
+	public double aumentarSalario(int metaVendas) throws MetaNaoAtingidaException {
+		if (this.vendasMes > metaVendas) {
+			this.salario *= 1.05;
+			return this.salario;
+		} else {
+			throw new MetaNaoAtingidaException();
+		}
 	}
 
 }
