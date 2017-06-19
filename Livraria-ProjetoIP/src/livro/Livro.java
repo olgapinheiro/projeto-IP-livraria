@@ -10,17 +10,18 @@ public  class Livro {
 	private int paginas;
 	private String autor;
 	private String editora;
-	Livro(){
-		this.codigo="";
-		this.nome="";
-		this.preco=0;
-		this.estoque=0;
-		this.genero="";
-		this.numeroEdicao="";
-		this.paginas=0;
-		this.editora="";
-	}
 	
+	Livro(String codigo,String nome,double preco,int estoque,String genero,String numEd,int paginas,String autor,String editora){
+		this.codigo=codigo;
+		this.nome=nome;
+		this.preco=preco;
+		this.estoque=estoque;
+		this.genero=genero;
+		this.numeroEdicao=numEd;
+		this.paginas=paginas;
+		this.autor=autor;
+		this.editora=editora
+	}
 	public String getCodigo() {
 		return this.codigo;
 	}
