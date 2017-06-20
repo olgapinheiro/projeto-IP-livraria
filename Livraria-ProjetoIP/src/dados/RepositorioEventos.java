@@ -1,6 +1,6 @@
 package dados;
 
-import eventos.Evento;
+import classesNegocio.Evento;
 
 public interface RepositorioEventos {
 

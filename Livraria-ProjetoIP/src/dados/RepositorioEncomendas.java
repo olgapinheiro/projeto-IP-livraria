@@ -1,6 +1,6 @@
 package dados;
 
-import encomenda.Encomenda;
+import classesNegocio.Encomenda;
 
 public interface RepositorioEncomendas {
 	public void inserir(Encomenda encomenda);
