@@ -41,13 +41,13 @@ public class Funcionario extends Pessoa {
 
 	// metodos especificos
 
-	public void venderLivro(Livro livro) throws LivroFaltaNoEstoqueException {
+	/*public void venderLivro(Livro livro) throws ProdutoFaltandoNoEstoqueException {
 		if (livro.getEstoque() > 0) {
 			this.vendasMes += 1;
 		} else {
-			throw new LivroFaltaNoEstoqueException();
+			throw new ProdutoFaltandoNoEstoqueException();
 		}
-	}
+	}*/
 
 	public void renderComissao(double valorVenda) {
 		this.comissao += valorVenda * 0.01;

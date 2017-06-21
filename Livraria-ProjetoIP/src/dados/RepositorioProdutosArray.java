@@ -9,7 +9,7 @@ public class RepositorioProdutosArray implements RepositorioProdutos {
 	private Produto[] produtos;
 	private int indice;
 	
-	public void RepositorioContasArray(int tamanho){
+	public RepositorioProdutosArray(int tamanho){
 		produtos=new Produto[tamanho];
 		indice=0;
 	}

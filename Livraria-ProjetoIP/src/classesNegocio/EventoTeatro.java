@@ -1,6 +1,6 @@
 package classesNegocio;
 import classesNegocio.Evento;
-import dados.RepositorioEvento;
+import dados.RepositorioEventos;
 
 public class EventoTeatro extends Evento{
 	

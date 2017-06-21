@@ -7,8 +7,10 @@ public class Livro extends Produto {
 	private String autor;
 	private String editora;
 
-	public Livro(String codigo,double preco,String nome ,int estoque){
-		super(codigo, preco, nome , estoque);
+	public Livro(String nome, String autor, String Editora, double preco, String codigo,  int estoque) {
+		super(codigo, preco, nome, estoque);
+		this.autor = autor;
+		
 	}
 
 	public String getGenero() {
@@ -27,7 +29,6 @@ public class Livro extends Produto {
 		return this.editora;
 	}
 
-	
 	public void setGenero(String gen) {
 		this.genero = gen;
 	}
@@ -36,7 +37,6 @@ public class Livro extends Produto {
 		this.numeroEdicao = numEd;
 	}
 
-	
 	public void setNumeroPaginas(int pag) {
 		this.paginas = pag;
 	}
@@ -44,6 +44,7 @@ public class Livro extends Produto {
 	public void setAutor(String autor) {
 		this.autor = autor;
 	}
+
 	public void setEditora(String ed) {
 		this.editora = ed;
 	}

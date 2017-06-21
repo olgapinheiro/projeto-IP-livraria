@@ -3,7 +3,8 @@ package classesNegocio;
 import exceptions.EncomendaJaCadastradaException;
 import exceptions.EncomendaJaCanceladaException;
 import exceptions.EncomendaNaoEncontradaException;
-import exceptions.LivroNaoEncontradoException;
+import exceptions.ProdutoFaltandoNoEstoqueException;
+import exceptions.ProdutoNaoEncontradoException;
 
 public class Cliente extends Pessoa {
 	private double bonus;
@@ -54,22 +55,22 @@ public class Cliente extends Pessoa {
 
 	// metodos de negocio
 
-	public double comprarLivro(String nome, String autor, CadastroLivros livros)
-			throws LivroNaoEncontradoException, LivroFaltaNoEstoqueException {
-		if (livros.existe(nome, autor)) {
-			Livro livro;
-			livro = livros.procurar(nome, autor);
-			if (livro.getEstoque() > 0) {
-				livro.setEstoque(livro.getEstoque() - 1);
-				return livro.getPreco();
+	/*public double comprarProduto(String nome, String autor, CadastroProdutos produtos)
+			throws ProdutoNaoEncontradoException, ProdutoFaltandoNoEstoqueException {
+		if (produtos.existe(nome, autor)) {
+			Produto produto;
+			produto = produtos.procurar(nome, autor);
+			if (produto.getEstoque() > 0) {
+				produto.setEstoque(produto.getEstoque() - 1);
+				return produto.getPreco();
 			} else {
-				throw new LivroFaltaNoEstoqueException();
+				throw new ProdutoFaltandoNoEstoqueException();
 			}
 
 		} else {
-			throw new LivroNaoEncontradoException();
+			throw new ProdutoNaoEncontradoException();
 		}
-	}
+	}*/
 
 	public void ganharBonus(double valorCompra) {
 		this.bonus += valorCompra * this.bonusFactor;

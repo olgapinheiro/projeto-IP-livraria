@@ -1,7 +1,6 @@
 package classesNegocio;
 
 import classesNegocio.Evento;
-import dados.RepositorioEvento;
 
 public class EventoLancamentoLivro extends Evento {
 
