@@ -8,14 +8,22 @@ public class RepositorioPessoasArray implements RepositorioPessoas {
 	private Pessoa[] pessoas;
 	private int indice;
 
-	public RepositorioPessoasArray(int tamanho) {
-		pessoas = new Pessoa[tamanho];
+	public RepositorioPessoasArray() {
+		pessoas = new Pessoa[100];
 		indice = 0;
 	}
 
 	public void inserir(Pessoa pessoa) throws PessoaJaCadastradaException {
+		
 		if (!this.existe(pessoa.getCpf())) {
 			this.pessoas[indice] = pessoa;
+			if(this.indice >= this.pessoas.length-1){
+				Pessoa[] pessoasNovo = new Pessoa[2*this.pessoas.length];
+				for(int i =0; i<pessoasNovo.length; i++){
+					pessoasNovo[i] = this.pessoas[i];
+				}
+				this.pessoas = pessoasNovo;
+			}
 			this.indice++;
 		} else {
 			throw new PessoaJaCadastradaException();
