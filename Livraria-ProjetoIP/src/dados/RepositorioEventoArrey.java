@@ -1,6 +1,6 @@
 package dados;
 import dados.RepositorioEvento;
-import classeNegocio.Evento;
+import classesNegocio.Evento;
 import exceptions.EventoExistenteException;
 import exceptions.EventoNaoExisteException;
 
@@ -31,8 +31,8 @@ public class RepositorioEventoArrey implements RepositorioEvento{
 		}
 	}
 
-	public void atualizar(String nome,Evento nomeNovo) throws EventoNaoExisteException{
-		this.eventos[getIndice(nome)] = nomeNovo;
+	public void atualizar(Evento eventoNovo) throws EventoNaoExisteException{
+		this.eventos[getIndice(eventoNovo.getNome())] = eventoNovo;
 	}
 
 	public Evento procurar(String nome) throws EventoNaoExisteException{

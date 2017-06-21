@@ -1,5 +1,5 @@
 package dados;
-import classeNegocio.Evento;
+import classesNegocio.Evento;
 import exceptions.EventoNaoExisteException;
 import exceptions.EventoExistenteException;
 
@@ -100,5 +100,7 @@ public class RepositorioEventoTAD implements RepositorioEvento{
 
 
 	}
+
+	
 
 }
