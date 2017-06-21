@@ -9,13 +9,20 @@ public class RepositorioEventoArrey implements RepositorioEvento{
 	private Evento[] eventos;
 	private int indice;
 	
-	public RepositorioEventoArrey(int tamanho){
-		eventos = new Evento[tamanho];
+	public RepositorioEventoArrey(){
+		eventos = new Evento[100];
 		indice = 0;
 	}
 	public void inserir(Evento evento) throws EventoExistenteException{
 		if(!this.existe(evento.getNome())){
 			this.eventos[indice] = evento;
+			if(this.indice >= this.eventos.length-1){
+				Evento[] eventosNovo = new Evento[2*this.eventos.length];
+				for(int i = 0;i < this.eventos.length;i++){
+					eventosNovo[i] = this.eventos[i];
+				}
+				this.eventos = eventosNovo;
+			}
 			this.indice++;	
 		}else {
 			throw new EventoExistenteException();
