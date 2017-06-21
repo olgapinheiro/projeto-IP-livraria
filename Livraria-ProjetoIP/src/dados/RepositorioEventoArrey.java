@@ -1,8 +1,8 @@
-package eventos;
+package dados;
 import dados.RepositorioEvento;
-import eventos.Evento;
-import eventos.EventoExistenteException;
-import eventos.EventoNaoExisteException;
+import classeNegocio.Evento;
+import exceptions.EventoExistenteException;
+import exceptions.EventoNaoExisteException;
 
 public class RepositorioEventoArrey implements RepositorioEvento{
 	
