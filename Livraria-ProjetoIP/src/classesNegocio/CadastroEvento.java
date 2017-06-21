@@ -1,13 +1,13 @@
-package classesNegocio;
-import dados.RepositorioEventos;
+package classeNegocio;
+import dados.RepositorioEvento;
 import exceptions.EventoExistenteException;
 import exceptions.EventoNaoExisteException;
 
 public class CadastroEvento {
 	
-	private RepositorioEventos eventos;
+	private RepositorioEvento eventos;
 	
-	public CadastroEvento(RepositorioEventos eventos){
+	public CadastroEvento(RepositorioEvento eventos){
 		this.eventos = eventos;
 		
 	}

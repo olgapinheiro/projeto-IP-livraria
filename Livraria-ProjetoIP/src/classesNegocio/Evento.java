@@ -1,6 +1,6 @@
-package classesNegocio;
+package classeNegocio;
 
-public class Evento {
+public abstract class Evento {
 	
 	private String nome;
 	private String data;
