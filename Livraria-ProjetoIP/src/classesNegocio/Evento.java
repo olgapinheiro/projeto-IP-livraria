@@ -1,4 +1,4 @@
-package classeNegocio;
+package classesNegocio;
 
 public abstract class Evento {
 	
