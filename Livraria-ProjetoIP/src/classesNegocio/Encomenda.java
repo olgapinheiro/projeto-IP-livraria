@@ -17,7 +17,7 @@ public class Encomenda {
 									// no método "novaEncomenda" do
 									// CadastroEncomendas
 
-	public Encomenda(Livro livro, boolean opcaoEntrega, Endereco enderecoEntrega, int prazoEntrega, double valorFrete) {
+	public Encomenda(Livro livro, boolean opcaoEntrega, Endereco enderecoEntrega, String numeroPedido) {
 		super();
 		this.livro = livro;
 		this.opcaoEntrega = opcaoEntrega;
@@ -25,14 +25,26 @@ public class Encomenda {
 		this.statusEntrega = "a caminho"; // no momento em que uma encomenda eh
 											// criada, considera-se que o pedido
 											// esta a caminho
-		this.valorFrete = valorFrete;
+		this.numeroPedido = numeroPedido;
 
 		if (!enderecoEntrega.getPais().equals("Brasil")) {
+			// entrega internacional (e' mais cara e custa mais)
 			this.prazoEntrega = 30;
+			this.valorFrete = 50;	
 		} else if (!enderecoEntrega.getEstado().equals("Pernambuco")) {
+			// entrega nacional, porem fora do estado de origem
 			this.prazoEntrega = 15;
+			this.valorFrete = 30;
 		} else {
+			// entrega no estado de origem (mais rapida e mais barata)
 			this.prazoEntrega = 7;
+			this.valorFrete = 15;
+		}
+		
+		// se for buscar a encomenda na livraria, o frete e' gratis
+		// (opcaoEntrega = false)
+		if(!opcaoEntrega){
+			valorFrete = 0;
 		}
 
 		// A data do pedido é a data do sistema no momento de criação de uma
