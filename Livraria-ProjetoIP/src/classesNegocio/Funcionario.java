@@ -15,27 +15,27 @@ public class Funcionario extends Pessoa {
 	}
 
 	// getters & setters
-	protected double getSalario() {
+	public double getSalario() {
 		return salario;
 	}
 
-	protected void setSalario(double salario) {
+	public void setSalario(double salario) {
 		this.salario = salario;
 	}
 
-	protected double getComissao() {
+	public double getComissao() {
 		return comissao;
 	}
 
-	protected void setComissao(double comissao) {
+	public void setComissao(double comissao) {
 		this.comissao = comissao;
 	}
 
-	protected int getVendasMes() {
+	public int getVendasMes() {
 		return vendasMes;
 	}
 
-	protected void setVendasMes(int vendasMes) {
+	public void setVendasMes(int vendasMes) {
 		this.vendasMes = vendasMes;
 	}
 
@@ -59,12 +59,13 @@ public class Funcionario extends Pessoa {
 		return comissaoTotal;
 	}
 
-	public double aumentarSalario(int metaVendas) throws MetaNaoAtingidaException {
+	public boolean aumentarSalario(int metaVendas) /*throws MetaNaoAtingidaException*/ {
 		if (this.vendasMes > metaVendas) {
 			this.salario *= 1.05;
-			return this.salario;
+			return true;
 		} else {
-			throw new MetaNaoAtingidaException();
+			//throw new MetaNaoAtingidaException();
+			return false;
 		}
 	}
 

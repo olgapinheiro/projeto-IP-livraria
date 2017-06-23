@@ -1,5 +1,7 @@
 package classesNegocio;
 
+import dados.RepositorioEncomendas;
+import dados.RepositorioEncomendasTAD;
 import exceptions.EncomendaJaCadastradaException;
 import exceptions.EncomendaJaCanceladaException;
 import exceptions.EncomendaNaoEncontradaException;
@@ -8,7 +10,8 @@ import exceptions.ProdutoNaoEncontradoException;
 
 public class Cliente extends Pessoa {
 	private double bonus;
-	private CadastroEncomendas encomendas;
+	private RepositorioEncomendas repEncomendasLista = new RepositorioEncomendasTAD();
+	private CadastroEncomendas encomendas = new CadastroEncomendas(repEncomendasLista);
 	private boolean clienteVIP;
 	private double bonusFactor;
 

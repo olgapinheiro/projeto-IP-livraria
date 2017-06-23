@@ -39,4 +39,8 @@ public class CadastroPessoas {
 		}
 	}
 	
+	public Pessoa proximaPessoa(String cpf) throws PessoaNaoEncontradaException{
+		return pessoas.chamarProximo(cpf);
+	}
+	
 }

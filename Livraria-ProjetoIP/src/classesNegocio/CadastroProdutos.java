@@ -38,4 +38,8 @@ public class CadastroProdutos {
 			throw new ProdutoNaoEncontradoException();
 		}
 	}
+
+	public int tamanhoCadastro() {
+		return produtos.getIndice();
+	}
 }
