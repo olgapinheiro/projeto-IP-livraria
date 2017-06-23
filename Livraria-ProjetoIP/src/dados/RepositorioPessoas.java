@@ -10,4 +10,5 @@ public interface RepositorioPessoas {
 	public void atualizar(Pessoa pessoa, Pessoa pessoaAtualizado) throws PessoaNaoEncontradaException;
 	public Pessoa procurar(String cpf) throws PessoaNaoEncontradaException;
 	public boolean existe(String cpf);
+	public Pessoa chamarProximo(String cpf) throws PessoaNaoEncontradaException;
 }

@@ -15,4 +15,6 @@ public interface RepositorioProdutos {
 
 	void remover(String codigo) throws ProdutoNaoEncontradoException;
 
+	int getIndice();
+
 }

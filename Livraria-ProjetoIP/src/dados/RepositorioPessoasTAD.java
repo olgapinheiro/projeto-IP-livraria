@@ -69,7 +69,7 @@ public class RepositorioPessoasTAD implements RepositorioPessoas {
 	}
 
 	public Pessoa procurar(String cpf) throws PessoaNaoEncontradaException {
-		if(this.existe(cpf)){
+		if (this.existe(cpf)) {
 			if (this.pessoa.getCpf().equals(cpf)) {
 				return this.pessoa;
 			} else {
@@ -90,6 +90,20 @@ public class RepositorioPessoasTAD implements RepositorioPessoas {
 			}
 		}
 		return achou;
+	}
+
+	public Pessoa chamarProximo(String cpf) throws PessoaNaoEncontradaException{
+		if (cpf.equals("")) {
+			return this.pessoa;
+		} else {
+			if (this.proximo.pessoa == null) {
+				return null;
+			} else if (this.pessoa.getCpf().equals(cpf)) {
+				return this.proximo.pessoa;
+			} else {
+				return this.proximo.chamarProximo(pessoa.getCpf());
+			}
+		}
 	}
 
 }

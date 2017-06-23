@@ -8,63 +8,65 @@ import exceptions.ProdutoNaoEncontradoException;
 public class RepositorioProdutosArray implements RepositorioProdutos {
 	private Produto[] produtos;
 	private int indice;
-	
-	public RepositorioProdutosArray(int tamanho){
-		produtos=new Produto[tamanho];
-		indice=0;
+
+	public RepositorioProdutosArray() {
+		produtos = new Produto[100];
+		indice = 0;
 	}
 
-	@Override
 	public void inserir(Produto produto) throws ProdutoJaCadastradoException {
-		// TODO Auto-generated method stub
-		if(!this.existe(produto.getCodigo())){
-			this.produtos[indice]=produto;
+		if (!this.existe(produto.getCodigo())) {
+			this.produtos[indice] = produto;
+			if (this.indice >= this.produtos.length - 1) {
+				Produto[] produtosNovo = new Produto[2 * this.produtos.length];
+				for (int i = 0; i < produtosNovo.length; i++) {
+					produtosNovo[i] = this.produtos[i];
+				}
+			}
 			this.indice++;
-		}else{
+		} else {
 			throw new ProdutoJaCadastradoException();
 		}
 	}
 
-	@Override
 	public boolean existe(String codigo) {
-		// TODO Auto-generated method stub
-		for(int i=0;i<this.indice;i++){
-			if(this.produtos[i].getCodigo().equals(codigo)){
+		for (int i = 0; i < this.indice; i++) {
+			if (this.produtos[i].getCodigo().equals(codigo)) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	@Override
 	public void remover(String codigo) throws ProdutoNaoEncontradoException {
-		// TODO Auto-generated method stub
-		if (this.existe(codigo)){
-			this.produtos[this.getIndice(codigo)]=this.produtos[this.indice-1];
-			this.indice-=1;
-		}else{
+		if (this.existe(codigo)) {
+			this.produtos[this.getIndice(codigo)] = this.produtos[this.indice - 1];
+			this.indice -= 1;
+		} else {
 			throw new ProdutoNaoEncontradoException();
-			
+
 		}
 	}
-	@Override
+
 	public Produto procurar(String codigo) throws ProdutoNaoEncontradoException {
-		// TODO Auto-generated method stub
-		return  this.produtos[this.getIndice(codigo)];
+		return this.produtos[this.getIndice(codigo)];
 	}
-	
-	@Override
+
 	public void atualizar(Produto produto, Produto produtoAtualizado) throws ProdutoNaoEncontradoException {
-		// TODO Auto-generated method stub
-		this.produtos[getIndice(produto.getCodigo())]=produtoAtualizado;
+		this.produtos[getIndice(produto.getCodigo())] = produtoAtualizado;
 	}
-	public int getIndice(String codigo) throws ProdutoNaoEncontradoException{
-			for(int i=0;i<this.indice;i++){
-				if(this.produtos[i].getCodigo().equals(codigo)){
-					return i;
-				}
+
+	public int getIndice(String codigo) throws ProdutoNaoEncontradoException {
+		for (int i = 0; i < this.indice; i++) {
+			if (this.produtos[i].getCodigo().equals(codigo)) {
+				return i;
 			}
-			throw new ProdutoNaoEncontradoException();
+		}
+		throw new ProdutoNaoEncontradoException();
+	}
+
+	public int getIndice() {
+		return this.indice;
 	}
 
 }
