@@ -18,7 +18,7 @@ public class CadastroEncomendas {
 	}
 
 	public void novaEncomenda(Encomenda encomenda) throws EncomendaJaCadastradaException {
-		if (encomendas.existe(encomenda)) {
+		if (encomendas.existe(encomenda.getNumeroPedido())) {
 			throw new EncomendaJaCadastradaException();
 		} else {
 			encomendas.inserir(encomenda);
@@ -26,7 +26,7 @@ public class CadastroEncomendas {
 	}
 
 	public void entregarEncomenda(Encomenda encomenda) throws EncomendaNaoEncontradaException {
-		if (encomendas.existe(encomenda)) {
+		if (encomendas.existe(encomenda.getNumeroPedido())) {
 			encomenda.setStatusEntrega("entregue");
 		} else {
 			throw new EncomendaNaoEncontradaException();
@@ -34,7 +34,7 @@ public class CadastroEncomendas {
 	}
 
 	public void cancelarEncomenda(Encomenda encomenda) throws EncomendaNaoEncontradaException, EncomendaJaCanceladaException {
-		if (encomendas.existe(encomenda) && !encomenda.getStatusEntrega().equals("cancelada")) {
+		if (encomendas.existe(encomenda.getNumeroPedido()) && !encomenda.getStatusEntrega().equals("cancelada")) {
 			encomenda.setStatusEntrega("cancelada");
 			encomenda.setPrazoEntrega(-1);
 		} else if(encomenda.getStatusEntrega().equals("cancelada")){
@@ -53,7 +53,7 @@ public class CadastroEncomendas {
 		LocalDate dataPedido;
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		
-		if (encomendas.existe(encomenda)) {
+		if (encomendas.existe(encomenda.getNumeroPedido())) {
 			
 			data = encomenda.getDataPedido();
 			dataPedido = LocalDate.parse(data, dtf);
