@@ -1,11 +1,13 @@
 package dados;
 
 import classesNegocio.Encomenda;
+import exceptions.EncomendaJaCadastradaException;
+import exceptions.EncomendaNaoEncontradaException;
 
 public interface RepositorioEncomendas {
-	public void inserir(Encomenda encomenda);
-	public void atualizar(Encomenda encomenda);
-	public void remover(Encomenda encomenda);
-	public Encomenda procurar(String numeroPedido);
-	public boolean existe(Encomenda encomenda);
+	public void inserir(Encomenda encomenda) throws EncomendaJaCadastradaException;
+	public void atualizar(Encomenda encomenda, Encomenda encomendaAtualizada) throws EncomendaNaoEncontradaException;
+	public void remover(String numeroPedido) throws EncomendaNaoEncontradaException;
+	public Encomenda procurar(String numeroPedido) throws EncomendaNaoEncontradaException;
+	public boolean existe(String numeroPedido);
 }
