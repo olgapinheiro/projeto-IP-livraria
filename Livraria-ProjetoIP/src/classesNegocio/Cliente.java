@@ -5,8 +5,6 @@ import dados.RepositorioEncomendasTAD;
 import exceptions.EncomendaJaCadastradaException;
 import exceptions.EncomendaJaCanceladaException;
 import exceptions.EncomendaNaoEncontradaException;
-import exceptions.ProdutoFaltandoNoEstoqueException;
-import exceptions.ProdutoNaoEncontradoException;
 
 public class Cliente extends Pessoa {
 	private double bonus;
@@ -31,49 +29,32 @@ public class Cliente extends Pessoa {
 	}
 
 	// getters & setters
-	protected double getBonus() {
+	public double getBonus() {
 		return bonus;
 	}
 
-	protected void setBonus(double bonus) {
+	public void setBonus(double bonus) {
 		this.bonus = bonus;
 	}
 
-	protected CadastroEncomendas getEncomendas() {
+	public CadastroEncomendas getEncomendas() {
 		return encomendas;
 	}
 
-	protected void setEncomendas(CadastroEncomendas encomendas) {
+	public void setEncomendas(CadastroEncomendas encomendas) {
 		this.encomendas = encomendas;
 	}
 
-	protected boolean isClienteVIP() {
+	public boolean isClienteVIP() {
 		return clienteVIP;
 	}
 
-	protected void setClienteVIP(boolean clienteVIP) {
+	public void setClienteVIP(boolean clienteVIP) {
 		this.clienteVIP = clienteVIP;
 		this.bonusFactor = 0.01;
 	}
 
 	// metodos de negocio
-
-	/*public double comprarProduto(String nome, String autor, CadastroProdutos produtos)
-			throws ProdutoNaoEncontradoException, ProdutoFaltandoNoEstoqueException {
-		if (produtos.existe(nome, autor)) {
-			Produto produto;
-			produto = produtos.procurar(nome, autor);
-			if (produto.getEstoque() > 0) {
-				produto.setEstoque(produto.getEstoque() - 1);
-				return produto.getPreco();
-			} else {
-				throw new ProdutoFaltandoNoEstoqueException();
-			}
-
-		} else {
-			throw new ProdutoNaoEncontradoException();
-		}
-	}*/
 
 	public void ganharBonus(double valorCompra) {
 		this.bonus += valorCompra * this.bonusFactor;
@@ -102,7 +83,7 @@ public class Cliente extends Pessoa {
 		encomendas.entregarEncomenda(encomenda);
 	}
 
-	public String consultarEncomenda(Encomenda encomenda) throws EncomendaNaoEncontradaException {
+	public long consultarEncomenda(Encomenda encomenda) throws EncomendaNaoEncontradaException {
 		return encomendas.prazoRestante(encomenda);
 	}
 

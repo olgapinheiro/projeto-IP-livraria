@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class Encomenda {
-	private Livro livro;
+	private Produto produto;
 	private boolean opcaoEntrega; // true -> entrega em casa; false -> entrega
 									// na loja.
 	private Endereco enderecoEntrega;
@@ -17,9 +17,9 @@ public class Encomenda {
 									// no método "novaEncomenda" do
 									// CadastroEncomendas
 
-	public Encomenda(Livro livro, boolean opcaoEntrega, Endereco enderecoEntrega, String numeroPedido) {
+	public Encomenda(Produto produto, boolean opcaoEntrega, Endereco enderecoEntrega, String numeroPedido) {
 		super();
-		this.livro = livro;
+		this.produto = produto;
 		this.opcaoEntrega = opcaoEntrega;
 		this.enderecoEntrega = enderecoEntrega;
 		this.statusEntrega = "a caminho"; // no momento em que uma encomenda eh
@@ -54,12 +54,12 @@ public class Encomenda {
 		this.dataPedido = dtf.format(dataAtual);
 	}
 
-	public Livro getLivro() {
-		return livro;
+	public Produto getProduto() {
+		return produto;
 	}
 
-	public void setLivro(Livro livro) {
-		this.livro = livro;
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 
 	public boolean isOpcaoEntrega() {

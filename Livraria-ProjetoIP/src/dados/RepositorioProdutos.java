@@ -5,16 +5,17 @@ import exceptions.ProdutoJaCadastradoException;
 import exceptions.ProdutoNaoEncontradoException;
 
 public interface RepositorioProdutos {
-	Produto procurar(String codigo) throws ProdutoNaoEncontradoException;
 
-	void inserir(Produto produto) throws ProdutoJaCadastradoException;
+	public void inserir(Produto produto) throws ProdutoJaCadastradoException;
+	public void remover(String codigo) throws ProdutoNaoEncontradoException;
+	public void atualizar(Produto produto, Produto produtoAtualizado) throws ProdutoNaoEncontradoException;
+	public Produto procurar(String codigo) throws ProdutoNaoEncontradoException;
+	public boolean existe(String codigo);
+	public Produto chamarProximo(String codigo) throws ProdutoNaoEncontradoException;
 
-	boolean existe(String codigo);
+	public int getIndice();
 
-	void atualizar(Produto produto, Produto produtoAtualizado) throws ProdutoNaoEncontradoException;
 
-	void remover(String codigo) throws ProdutoNaoEncontradoException;
 
-	int getIndice();
 
 }

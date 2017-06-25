@@ -10,4 +10,5 @@ public interface RepositorioEncomendas {
 	public void remover(String numeroPedido) throws EncomendaNaoEncontradaException;
 	public Encomenda procurar(String numeroPedido) throws EncomendaNaoEncontradaException;
 	public boolean existe(String numeroPedido);
+	public Encomenda chamarProximo(String numeroPedido) throws EncomendaNaoEncontradaException;
 }

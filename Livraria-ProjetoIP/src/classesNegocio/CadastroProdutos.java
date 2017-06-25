@@ -42,4 +42,8 @@ public class CadastroProdutos {
 	public int tamanhoCadastro() {
 		return produtos.getIndice();
 	}
+
+	public Produto proximoProduto(String codigo) throws ProdutoNaoEncontradoException {
+		return produtos.chamarProximo(codigo);
+	}
 }

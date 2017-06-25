@@ -93,6 +93,20 @@ public class RepositorioEncomendasTAD implements RepositorioEncomendas {
 		return achou;
 	}
 
+	public Encomenda chamarProximo(String numeroPedido) {
+		if (numeroPedido.equals("")) {
+			return this.encomenda;
+		} else {
+			if (this.proximo.encomenda == null) {
+				return null;
+			} else if (this.encomenda.getNumeroPedido().equals(numeroPedido)) {
+				return this.proximo.encomenda;
+			} else {
+				return this.proximo.chamarProximo(encomenda.getNumeroPedido());
+			}
+		}
+	}
+
 
 
 }

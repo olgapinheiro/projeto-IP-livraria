@@ -5,6 +5,7 @@ public abstract class Produto {
 	private double preco;
 	private String nome;
 	private int estoque;
+	private int vendasMes;
 	
 	public Produto(String codigo,double preco,String nome ,int estoque){
 		this.codigo=codigo;
@@ -35,6 +36,12 @@ public abstract class Produto {
 	}
 	public void setEstoque(int estoque){
 		 this.estoque=estoque;
+	}
+	public int getVendasMes() {
+		return vendasMes;
+	}
+	public void setVendasMes(int vendasMes) {
+		this.vendasMes = vendasMes;
 	}
 	public void estocar(int qtd){
 		this.estoque=this.estoque+qtd;

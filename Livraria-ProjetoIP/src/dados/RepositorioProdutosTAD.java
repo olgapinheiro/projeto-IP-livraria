@@ -105,5 +105,19 @@ public class RepositorioProdutosTAD implements RepositorioProdutos {
 		}
 		
 	}
+	
+	public Produto chamarProximo(String codigo) throws ProdutoNaoEncontradoException{
+		if (codigo.equals("")) {
+			return this.produto;
+		} else {
+			if (this.proximo.produto == null) {
+				return null;
+			} else if (this.produto.getCodigo().equals(codigo)) {
+				return this.proximo.produto;
+			} else {
+				return this.proximo.chamarProximo(produto.getCodigo());
+			}
+		}
+	}
 
 }

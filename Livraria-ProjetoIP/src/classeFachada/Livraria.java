@@ -11,6 +11,7 @@ import classesNegocio.Jogo;
 import classesNegocio.Livro;
 import classesNegocio.Produto;
 import exceptions.EncomendaJaCadastradaException;
+import exceptions.EncomendaNaoEncontradaException;
 import exceptions.EventoExistenteException;
 import exceptions.EventoNaoExisteException;
 import exceptions.MetaNaoAtingidaException;
@@ -27,9 +28,12 @@ public class Livraria {
 	private CadastroEventos eventos;
 	private CadastroProdutos livros;
 	private CadastroProdutos jogos;
+
 	// private CadastroProdutos produtos;
 	// private CadastroAdministradores administradores;
 
+	private Livro[] livrosMaisVendidos = new Livro[3];
+	private Jogo[] jogosMaisVendidos = new Jogo[3];
 	private int itensVendidosMes; // quantidade de itens vendidos no mês
 	private double receitaMes; // dinheiro arrecadado com as vendas do mês, em
 								// reais
@@ -43,11 +47,10 @@ public class Livraria {
 		this.eventos = eventos;
 		this.livros = livros;
 		this.jogos = jogos;
-		this.itensVendidosMes = 0;
-		this.receitaMes = 0;
-		this.custosMes = 0;
-		this.custosMes = 0;
-		this.lucroMes = 0;
+		this.setItensVendidosMes(0);
+		this.setReceitaMes(0);
+		this.setCustosMes(0);
+		this.setLucroMes(0);
 	}
 
 	protected CadastroPessoas getClientes() {
@@ -90,23 +93,71 @@ public class Livraria {
 
 	// Cadastra
 
-	public void CadastroCliente(Cliente cliente) throws PessoaJaCadastradaException {
+	public Livro[] getLivrosMaisVendidos() {
+		return livrosMaisVendidos;
+	}
+
+	public void setLivrosMaisVendidos(Livro[] livrosMaisVendidos) {
+		this.livrosMaisVendidos = livrosMaisVendidos;
+	}
+
+	public Jogo[] getJogosMaisVendidos() {
+		return jogosMaisVendidos;
+	}
+
+	public void setJogosMaisVendidos(Jogo[] jogosMaisVendidos) {
+		this.jogosMaisVendidos = jogosMaisVendidos;
+	}
+
+	public int getItensVendidosMes() {
+		return itensVendidosMes;
+	}
+
+	public void setItensVendidosMes(int itensVendidosMes) {
+		this.itensVendidosMes = itensVendidosMes;
+	}
+
+	public double getReceitaMes() {
+		return receitaMes;
+	}
+
+	public void setReceitaMes(double receitaMes) {
+		this.receitaMes = receitaMes;
+	}
+
+	public double getCustosMes() {
+		return custosMes;
+	}
+
+	public void setCustosMes(double custosMes) {
+		this.custosMes = custosMes;
+	}
+
+	public double getLucroMes() {
+		return lucroMes;
+	}
+
+	public void setLucroMes(double lucroMes) {
+		this.lucroMes = lucroMes;
+	}
+
+	public void CadastrarCliente(Cliente cliente) throws PessoaJaCadastradaException {
 		this.clientes.cadastrar(cliente);
 	}
 
-	public void CadastroFuncionarios(Funcionario funcionario) throws PessoaJaCadastradaException {
+	public void CadastrarFuncionarios(Funcionario funcionario) throws PessoaJaCadastradaException {
 		this.funcionarios.cadastrar(funcionario);
 	}
 
-	public void CadastroEventos(Evento evento) throws EventoExistenteException {
+	public void CadastrarEventos(Evento evento) throws EventoExistenteException {
 		this.eventos.cadastrar(evento);
 	}
 
-	public void CadastroLivro(Livro livro) throws ProdutoJaCadastradoException {
+	public void CadastrarLivro(Livro livro) throws ProdutoJaCadastradoException {
 		this.livros.cadastrar(livro);
 	}
 
-	public void CadastroJogo(Jogo jogo) throws ProdutoJaCadastradoException {
+	public void CadastrarJogo(Jogo jogo) throws ProdutoJaCadastradoException {
 		this.jogos.cadastrar(jogo);
 	}
 	// Remover
@@ -178,8 +229,9 @@ public class Livraria {
 
 	// ----- Métodos de Negócio ------
 
-	// Venda de Livro
+	// Venda de produto
 
+	// Venda atribuida a um funcionario:
 	public double venderProduto(Produto produto, Cliente cliente, Funcionario funcionario)
 			throws ProdutoNaoEncontradoException, ProdutoFaltandoNoEstoqueException, PessoaNaoEncontradaException {
 
@@ -191,6 +243,25 @@ public class Livraria {
 			cliente.ganharBonus(produto.getPreco());
 			funcionario.renderComissao(produto.getPreco());
 			funcionario.setVendasMes(funcionario.getVendasMes() + 1);
+			this.setItensVendidosMes(this.getItensVendidosMes() + 1);
+			this.setReceitaMes(this.getReceitaMes() + produto.getPreco());
+			return produto.getPreco();
+		} else {
+			throw new ProdutoFaltandoNoEstoqueException();
+		}
+	}
+
+	// Venda realizada sem participacao de funcionario:
+	public double venderProduto(Produto produto, Cliente cliente)
+			throws ProdutoNaoEncontradoException, ProdutoFaltandoNoEstoqueException, PessoaNaoEncontradaException {
+
+		produto = this.livros.procurar(produto.getCodigo());
+		cliente = (Cliente) this.clientes.procurar(cliente.getCpf());
+		if (produto.getEstoque() > 0) {
+			produto.setEstoque(produto.getEstoque() - 1);
+			cliente.ganharBonus(produto.getPreco());
+			this.setItensVendidosMes(this.getItensVendidosMes() + 1);
+			this.setReceitaMes(this.getReceitaMes() + produto.getPreco());
 			return produto.getPreco();
 		} else {
 			throw new ProdutoFaltandoNoEstoqueException();
@@ -203,18 +274,81 @@ public class Livraria {
 		cliente.fazerEncomenda(encomenda);
 	}
 
-	
-	// falta alterar os atributos: receita, itensVendidosMes, etc...
 	public void fecharMesFuncionarios(int metaVendasIndividual, CadastroPessoas funcionarios)
 			throws PessoaNaoEncontradaException {
-		String relatorio = "";
 		Funcionario funcionario = (Funcionario) funcionarios.proximaPessoa("");
 		while (funcionario != null) {
-			boolean salarioAumentou = funcionario.aumentarSalario(metaVendasIndividual);
-			double comissaoTotal = funcionario.receberComissao();
+			/* boolean salarioAumentou = */funcionario.aumentarSalario(metaVendasIndividual);
+			/* double comissaoTotal = */funcionario.receberComissao();
 			funcionario = (Funcionario) funcionarios.proximaPessoa(funcionario.getCpf());
 		}
-		// lembrar de incluir na ClassePrograma a impressao dos dados em um relatorio
+		// lembrar de incluir na ClassePrograma a impressao dos dados em um
+		// relatorio
+	}
+
+	// verificar entrega das encomendas
+	public void fecharMesClientes(CadastroPessoas clientes) throws PessoaNaoEncontradaException,
+			EncomendaNaoEncontradaException, ProdutoNaoEncontradoException, ProdutoFaltandoNoEstoqueException {
+		Cliente cliente = (Cliente) clientes.proximaPessoa("");
+		while (cliente != null) {
+			Encomenda encomenda = cliente.getEncomendas().proximaEncomenda("");
+			while (cliente.getEncomendas().proximaEncomenda(encomenda.getNumeroPedido()) != null) {
+				if (encomenda.getPrazoEntrega() == 0) {
+					cliente.getEncomendas().entregarEncomenda(encomenda);
+					this.venderProduto(encomenda.getProduto(), cliente);
+				}
+			}
+		}
+	}
+
+
+	public void fecharMesProdutos(CadastroProdutos produtos) throws ProdutoNaoEncontradoException {
+		int estoqueMaximo = 5;
+		Produto produto = produtos.proximoProduto("");
+
+		Produto[] maisVendidos = new Produto[3];
+		maisVendidos[0] = produto; // 1º produto mais vendido
+		maisVendidos[1] = produto; // 2º produto mais vendido
+		maisVendidos[2] = produto; // 3º produto mais vendido
+
+		while (produto != null) {
+
+			// renovacao do estoque:
+			if (produto.getEstoque() == 0) {
+				produto.setEstoque(estoqueMaximo);
+				this.setCustosMes(this.getCustosMes() + estoqueMaximo * produto.getPreco());
+			}
+
+			// verificacao dos mais vendidos
+			if (produto.getVendasMes() >= maisVendidos[0].getVendasMes()) {
+				maisVendidos[2] = maisVendidos[1];
+				maisVendidos[1] = maisVendidos[0];
+				maisVendidos[0] = produto;
+			} else if (produto.getVendasMes() >= maisVendidos[1].getVendasMes()) {
+				maisVendidos[2] = maisVendidos[1];
+				maisVendidos[1] = produto;
+			} else if (produto.getVendasMes() >= maisVendidos[2].getVendasMes()) {
+				maisVendidos[2] = produto;
+			}
+
+			// chamar o proximo produto do repositorio
+			produto = produtos.proximoProduto(produto.getCodigo());
+		}
+
+		// armazenar os mais vendidos na variavel adequada, dependendo do
+		// repositorio de entrada:
+		if (produto instanceof Livro) {
+			this.setLivrosMaisVendidos((Livro[]) maisVendidos);
+		} else if (produto instanceof Jogo) {
+			this.setJogosMaisVendidos((Jogo[]) maisVendidos);
+		}
+	}
+
+	public void fecharMesGeral(int metaVendasIndividual) throws ProdutoNaoEncontradoException, PessoaNaoEncontradaException, EncomendaNaoEncontradaException, ProdutoFaltandoNoEstoqueException {
+		fecharMesProdutos(livros);
+		fecharMesProdutos(jogos);
+		fecharMesFuncionarios(metaVendasIndividual, funcionarios);
+		fecharMesClientes(clientes);
 	}
 
 }

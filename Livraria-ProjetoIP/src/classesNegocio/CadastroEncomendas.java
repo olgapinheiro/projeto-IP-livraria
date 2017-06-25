@@ -44,7 +44,7 @@ public class CadastroEncomendas {
 		}
 	}
 
-	public String prazoRestante(Encomenda encomenda) throws EncomendaNaoEncontradaException {
+	public long prazoRestante(Encomenda encomenda) throws EncomendaNaoEncontradaException {
 		// datas
 		long diasPassados;
 		long  diasRestantes;
@@ -64,15 +64,22 @@ public class CadastroEncomendas {
 				diasPassados = dataPedido.until(dataAtual, DAYS);
 				diasRestantes = encomenda.getPrazoEntrega()-diasPassados;
 				encomenda.setStatusEntrega("a caminho");
-				return "Encomenda será entregue em " + diasRestantes + " dias";
+				//return "Encomenda será entregue em " + diasRestantes + " dias";
+				return diasRestantes;
 			} else if(!encomenda.getStatusEntrega().equals("cancelada")){
 				encomenda.setStatusEntrega("entregue");
-				return "Encomenda já entregue";
+//				return "Encomenda já entregue";
+				return 0;
 			} else{
-				return "Encomenda cancelada";
+//				return "Encomenda cancelada";
+				return -1;
 			}
 		} else {
 			throw new EncomendaNaoEncontradaException();
 		}
+	}
+
+	public Encomenda proximaEncomenda(String numeroPedido) throws EncomendaNaoEncontradaException{
+		return encomendas.chamarProximo(numeroPedido);
 	}
 }

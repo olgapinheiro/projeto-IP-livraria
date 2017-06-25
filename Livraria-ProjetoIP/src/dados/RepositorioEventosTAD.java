@@ -1,4 +1,5 @@
 package dados;
+
 import classesNegocio.Evento;
 import exceptions.EventoNaoExisteException;
 import exceptions.EventoExistenteException;
@@ -45,7 +46,6 @@ public class RepositorioEventosTAD implements RepositorioEventos{
 		
 
 	public void remover(String nome) throws EventoNaoExisteException {
-		Evento evento = this.procurar(nome);
 		if(this.existe(nome)){
 			if(this.evento.equals(nome)){
 				this.evento = this.proximo.evento;
